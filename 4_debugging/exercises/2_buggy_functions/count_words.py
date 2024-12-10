@@ -28,5 +28,4 @@ def count_words(text: str) -> int:
     0
     """
     assert isinstance(text, str), "input must be a string"
-
-    return len(text.split(" "))
+    return len([word for word in text.split(" ") if word])

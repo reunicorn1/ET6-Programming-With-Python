@@ -23,50 +23,49 @@ class TestRemoveSpaces(unittest.TestCase):
     def test_single_word(self):
         """It should return the same string if no spaces present"""
         self.assertEqual(remove_spaces("hello"), "hello")
-    
+        # correct
     def test_two_words(self):
         """It should remove a single space between words"""
-        self.assertEqual(remove_spaces("hello world"), "hello_world")
-    
+        self.assertEqual(remove_spaces("hello world"), "helloworld")
+        # spaces are replaced with empty strings not underscores, obviously
+        # this will fail!
     def test_multiple_words(self):
         """It should remove all spaces between multiple words"""
-        self.assertEqual(remove_spaces("the quick brown fox"), " thequickbrownfox ")
-    
+        self.assertEqual(remove_spaces("the quick brown fox"), "thequickbrownfox")
+        #this will fail bc all spaces are removed, there's an additional space here
     # Edge cases
     def test_empty_string(self):
         """It should handle empty strings"""
         self.assertEqual(remove_spaces(""), "")
-    
+        # correct
     def test_only_spaces(self):
         """It should handle strings containing only spaces"""
-        self.assertEqual(remove_spaces("   "), "   ")
-    
+        self.assertEqual(remove_spaces("   "), "")
+        # fails bc the output is an empty string
     def test_spaces_at_ends(self):
         """It should remove spaces at start and end of string"""
         self.assertEqual(remove_spaces("  hello  "), "hello")
-    
     def test_special_characters(self):
         """It should preserve all non-space characters"""
-        self.assertEqual(remove_spaces("hello, world!"), "helloworld")
-    
+        self.assertEqual(remove_spaces("hello, world!"), "hello,world!")
+        # the function doesn't take anything except spaces
     def test_numbers_and_symbols(self):
         """It should handle strings with numbers and symbols"""
         self.assertEqual(remove_spaces("123 + 456"), "123+456")
-    
     # Defensive tests
     def test_non_string_input(self):
         """It should raise AssertionError for non-string input"""
         with self.assertRaises(AssertionError):
             remove_spaces(123)
-    
     def test_none_input(self):
         """It should raise AssertionError for None input"""
         with self.assertRaises(AssertionError):
             remove_spaces(None)
-    
     def test_list_input(self):
         """It should raise AssertionError for list input"""
-        self.assertEqual(remove_spaces(["hello", "world"]), "helloworld")
+        with self.assertRaises(AssertionError):
+            remove_spaces(["hello", "world"])
+        # exactly! it should raise an error bc the input is not a string
 
 if __name__ == '__main__':
     unittest.main()

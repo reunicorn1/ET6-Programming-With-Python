@@ -14,12 +14,14 @@ Author: Claude AI
 def reverse_words(text: str) -> str:
     """Reverses the order of words in a string.
     Words are separated by single spaces.
-    
+
     Parameters:
         text: str, the input string
-        
+
     Returns -> str: string with words in reverse order
-    
+
+    Raises: Assertion Error if text is not word
+
     >>> reverse_words("hello world")
     'world hello'
     >>> reverse_words("one")
@@ -31,8 +33,11 @@ def reverse_words(text: str) -> str:
 
     words = text.split(" ")
     result = ""
-    
+
     for word in words:
-        result = " " + word + result
-        
+        if result:
+            result = word + " " + result
+        else:
+            result = word
+
     return result
