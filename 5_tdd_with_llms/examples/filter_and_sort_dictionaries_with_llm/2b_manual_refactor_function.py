@@ -1,13 +1,13 @@
 import unittest
 
 
-def f(lst, sort_key):
+def f(lst, key):
     """Filters a list of dicts by key, and alphabetizes the entries by value.
 
     This function does not modify the argument list.
 
     Parameters:
-      list[dict[str, str]]: an array of dicts with string keys and string values
+      list[dict[str, str]]: an list of dicts with string keys and string values
       str: the function will remove all dicts that don't have this key
 
     Returns: a list of dicts where each dict contains the given key,
@@ -22,25 +22,23 @@ def f(lst, sort_key):
     >>> f([{'a':'z'},{'b':'y'},{'a':'x'}], 'a')
     [{'a':'x'},{'a','z'}]
 
+
     >>> f([{'a':'z','b':'j'},{'b':'y'},{'b':'i',a':'x'}], 'b')
     [{'b':'i',a':'x'},{'a':'z','b':'j'},{'b':'y'}]
 
     """
     assert isinstance(lst, list), "Input must be a list"
     assert all(isinstance(d, dict) for d in lst), "List elements must be dictionaries"
+    # removed extra assertion
+    # fixed error in assertion, asked AI to check if all keys and values are strings
+    #   manually refactored the loop to assert
     for dictionary in lst:
         for key, value in dictionary.items():
-            assert isinstance(sort_key, str), "some keys are not strings"
+            assert isinstance(key, str), "some keys are not strings"
             assert isinstance(value, str), "some values are not strings"
 
-    filtered_list = []
-    for d in lst:
-        if sort_key in d:
-            filtered_list.append(d)
-
-    # remove redundant for loop
-    # fix variable clash in lambda
-    sorted_list = sorted(filtered_list, key=lambda x: x[sort_key])
+    filtered_list = [d for d in lst if isinstance(d, dict) and key in d]
+    sorted_list = sorted(filtered_list, key=lambda x: x[key])
 
     return sorted_list
 

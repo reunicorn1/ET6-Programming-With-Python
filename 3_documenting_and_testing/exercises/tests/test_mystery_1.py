@@ -25,4 +25,3 @@ class TestMystery1(unittest.TestCase):
     def test_4(self):
         """it should evaluate [1, 2], [3] to [1, 2, 3]"""
         self.assertEqual(mystery_1([1, 2], [3]), [1, 2, 3])
-
